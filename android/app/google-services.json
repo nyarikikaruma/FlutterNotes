@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "783065192702",
+    "project_id": "karumanotes-flutter-project",
+    "storage_bucket": "karumanotes-flutter-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783065192702:android:db4e75544dca24366f2daf",
+        "android_client_info": {
+          "package_name": "com.example.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783065192702-98t3t1j25adfvrbp56ofd1i3p3o3f9kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9zZ0JdaGL0RFDDa-4q-KyJ9RhDzmvnWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783065192702-98t3t1j25adfvrbp56ofd1i3p3o3f9kh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
