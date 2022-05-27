@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                           }
                           else{
                             // User is not verified.
-                          Navigator.of(context).pushNamedAndRemoveUntil(VerifyEmailRoute, (route) => false);
+                          Navigator.of(context).pushNamedAndRemoveUntil(verifyEmailRoute, (route) => false);
                           }
                           }
                           on UserNotFoundAuthException{
