@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
+import 'package:mynotes/views/constants/routes.dart';
+import 'package:mynotes/views/utilities/show_error_dialog.dart';
+
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -51,7 +54,7 @@ class _RegisterViewState extends State<RegisterView> {
                     children: [
                       TextButton(onPressed: () {
                         // Return to register view.
-                        Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+                        Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
                       }, child: const Text('Login')),
                       TextButton(
                         onPressed: () async {
@@ -59,13 +62,27 @@ class _RegisterViewState extends State<RegisterView> {
                           final password = _password.text;
                           try{
                           final usercredentials = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+                          Navigator.of(context).pushNamedAndRemoveUntil(homeRoute, (route) => false);
+
                           devtools.log(usercredentials.toString());
                           }
                           on FirebaseAuthException catch(e){
+                            if(e.code == 'weak-password'){
+                              showErrorDialog(context, 'Weak password, try again');
+                            }
+                            else if(e.code == 'email-already-in-use'){
+                              showErrorDialog(context, 'The email is already in use');
+                            }
+                            else if(e.code == 'invalid-email'){
+                              showErrorDialog(context, 'Invalid email');
+                            }
+                            else{
+                              showErrorDialog(context, 'An error occured');
+                            }
                             devtools.log(e.code);
                           }
                         },
-                        child: Text('Register')),
+                        child: const Text('Register')),
                     ],
                   ),
                 ],

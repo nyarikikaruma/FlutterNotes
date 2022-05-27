@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/views/constants/routes.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_email.dart';
@@ -16,10 +17,10 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/register/': (context) => const RegisterView(),
-        '/login/': (context) => const LoginView(),
-        '/logout/': (context) => const LoginView(),
-        '/home/': (context) => const NotesView(),
+        registerRoute: (context) => const RegisterView(),
+        loginRoute: (context) => const LoginView(),
+        homeRoute: (context) => const NotesView(),
+        VerifyEmailRoute: (context) => const VerifyEmailView(),
       }
     ));
 }
@@ -77,16 +78,16 @@ class _NotesViewState extends State<NotesView> {
             onSelected: (value) async {           
               switch(value){
                 case MenuAction.login:
-                  Navigator.of(context).pushNamed('/login/');
+                  Navigator.of(context).pushNamed(loginRoute);
                   break;
                 case MenuAction.register:
-                  Navigator.of(context).pushNamed('/register/');
+                  Navigator.of(context).pushNamed(registerRoute);
                   break;
                 case MenuAction.logout:
                 final logout = await showLogOutDialog(context);
                 if(logout){
                 await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
 
                 }
 
@@ -110,7 +111,7 @@ class _NotesViewState extends State<NotesView> {
             ListTile(
               title: const Text('Register'),
               onTap: () {
-                Navigator.of(context).pushNamed('/register/');
+                Navigator.of(context).pushNamed(registerRoute);
               },
             ),
             ListTile(
@@ -119,7 +120,7 @@ class _NotesViewState extends State<NotesView> {
                Future<void> _signOut() async {
                   await FirebaseAuth.instance.signOut();
                 }
-                Navigator.of(context).pushNamed('/Login/');
+                Navigator.of(context).pushNamed(loginRoute);
               },
             ),
           ],
