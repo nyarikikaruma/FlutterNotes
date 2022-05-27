@@ -1,0 +1,1 @@
+enum MenuAction { login, register, logout }
