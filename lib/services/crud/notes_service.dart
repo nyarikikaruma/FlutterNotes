@@ -11,10 +11,16 @@ class NotesService {
 List<DatabaseNote> _notes = [];
 
 static final NotesService _shared = NotesService._sharedInstance();
-NotesService._sharedInstance();
+NotesService._sharedInstance(){
+  _notesStreanController = StreamController<List<DatabaseNote>>.broadcast(
+    onListen: () {
+      _notesStreanController.sink.add(_notes);
+    }
+  );
+}
 factory NotesService() => _shared;
 
-final _notesStreanController = StreamController<List<DatabaseNote>>.broadcast();
+late final StreamController<List<DatabaseNote>> _notesStreanController;
 
 Stream<List<DatabaseNote>> get allNotes => _notesStreanController.stream;
 
@@ -256,16 +262,16 @@ const userIdColumn = 'user_id';
 const textColumn = 'text';
 const isSyncedWithServerColumn = 'is_synced_with_server';
 const createUserTable = '''
-      CREATE TABLE IF NOT EXISTS "user" (
-        "id" INTEGER PRIMARY KEY,
-        "email" TEXT NOT NULL UNIQUE,
+      CREATE TABLE IF NOT EXISTS 'user' (
+        'id' INTEGER PRIMARY KEY,
+        'email' TEXT NOT NULL UNIQUE
       );
       ''';
 const createNoteTable = '''
-      CREATE TABLE IF NOT EXISTS "note" (
-        "id"	INTEGER NOT NULL,
-        "user_id"	INTEGER NOT NULL,
-        "text"	TEXT,
-        "is_synced_with_server"	INTEGER NOT NULL DEFAULT 0,
-        PRIMARY KEY("id" AUTOINCREMENT)
+      CREATE TABLE IF NOT EXISTS 'note'(
+        'id'	INTEGER NOT NULL,
+        'user_id'	INTEGER NOT NULL,
+        'text'	TEXT,
+        'is_synced_with_server'	INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY(id AUTOINCREMENT)
       );''';
