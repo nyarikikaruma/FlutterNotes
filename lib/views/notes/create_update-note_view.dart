@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/services/crud/notes_service.dart';
 import 'package:mynotes/views/utilities/generics/get_arguments.dart';
@@ -53,7 +50,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     }
      final currentUser = AuthService.firebase().currentUser!;
      final email = currentUser.email!;
-     final owner = await _notesService.getOrCreateUser(email);
+     final owner = await _notesService.getOrCreateUser(email: email);
      final newNote = await _notesService.createNote(owner: owner);
      _note = newNote;
      return newNote;
@@ -97,7 +94,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                   controller: _textEditingController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter note here...'
                   ),
                 );
