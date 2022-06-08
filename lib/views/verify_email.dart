@@ -28,6 +28,12 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                     Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   }
                   break;
+                case MenuAction.login:
+                  // TODO: Handle this case.
+                  break;
+                case MenuAction.register:
+                  // TODO: Handle this case.
+                  break;
               }
             },
             itemBuilder: (context){
